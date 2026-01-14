@@ -40,6 +40,7 @@ jobs:
 
   deploy-staging:
     runs-on: ubuntu-latest
+    needs: deploy-dev
     environment: staging
     env:
       TF_VAR_aws_region: ${{ secrets.AWS_REGION }}
