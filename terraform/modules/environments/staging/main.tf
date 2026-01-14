@@ -2,19 +2,18 @@ terraform {
   required_version = ">= 1.0"
   required_providers {
     aws = {
-        source = "hashicorp/aws"
-        version = "~> 5.0"
+      source  = "hashicorp/aws"
+      version = "~> 5.0"
     }
   }
- }
+}
 
 variable "aws_region" {
-    type = string
-    description = "Region currently deploying to."
+  type = string
 }
 
 provider "aws" {
-    region = var.aws_region
+  region = var.aws_region
 }
 
 terraform {
