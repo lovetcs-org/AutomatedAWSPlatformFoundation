@@ -1,0 +1,33 @@
+name: Infrastructure Pipeline Setup
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  infrasture-pipleine-run:
+    runs-on: ubuntu-latest
+    environment: dev
+    env:
+      TF_VAR_aws_region = ${{ secrets.AWS.REGION }}
+    
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Configure Credntials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: $ {{ secrets.AWS_ARN_ROLE }}
+      
+      - name: Terraform Plan
+        run: terraform plan
+   
+
+
+          
