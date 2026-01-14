@@ -1,0 +1,20 @@
+# Terraform tool files
+.terraform/
+*.tfstate
+*.tfstate.*
+crash.log
+.terraform.lock.hcl
+
+# Sensitive Variables
+*.tfvars
+*.tfvars.json
+override.tf
+override.tf.json
+
+# Operating System files
+.DS_Store
+Thumbs.db
+
+# App dependencies
+node_modules/
+__pycache__/
