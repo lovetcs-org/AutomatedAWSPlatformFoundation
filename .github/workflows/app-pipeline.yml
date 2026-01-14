@@ -1,0 +1,22 @@
+name: Application Pipeline Setup
+
+on:
+  push: 
+    branches: [ main ]
+    paths:
+      - 'src/**'
+      - 'helm/**'
+      - Dockerfile
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  deploy-dev:
+    runs-on: ubuntu-latest
+    environment: Dev
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4

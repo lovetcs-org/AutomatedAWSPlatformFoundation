@@ -3,6 +3,8 @@ name: Infrastructure Pipeline Setup
 on:
   push:
     branches: [ main ]
+    paths: 
+      - 'terraform/**'
   workflow_dispatch:
 
 permissions:
