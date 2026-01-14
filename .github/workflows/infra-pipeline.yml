@@ -10,7 +10,7 @@ permissions:
   contents: read
 
 jobs:
-  infrasture-pipleine-run:
+  infrastructure-pipeline-run:
     runs-on: ubuntu-latest
     environment: dev
     env:
@@ -20,18 +20,16 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Configure Credntials
+      - name: Configure Credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: ${{ secrets.AWS_ARN_ROLE }}
           aws-region: ${{ secrets.AWS_REGION }}
       
       - name: Terraform Init
+        working-directory: terraform/modules/environments/dev
         run: terraform init -backend-config="region=${{ secrets.AWS_REGION }}"
 
       - name: Terraform Plan
+        working-directory: terraform/modules/environments/dev
         run: terraform plan
-   
-
-
-          
