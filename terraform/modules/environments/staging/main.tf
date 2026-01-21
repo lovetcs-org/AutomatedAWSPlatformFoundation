@@ -26,7 +26,7 @@ terraform {
 }
 
 module "vpc" {
-  source = "/Users/letongw/Documents/Automated AWS Platform Foundation/modules/vpc"
+  source = "../../../../modules/vpc"
   env_name = "staging"
   vpc_cidr = "10.0.0.0/16"
 }
