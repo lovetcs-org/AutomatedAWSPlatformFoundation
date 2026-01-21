@@ -36,7 +36,7 @@ jobs:
 
       - name: Terraform Apply
         working-directory: terraform/modules/environments/dev
-        run: terraform apply -backend-config="region=${{ secrets.AWS_REGION }}"
+        run: terraform apply -auto-approve -var="aws_region=${{ secrets.AWS_REGION }}"
 
   deploy-staging:
     runs-on: ubuntu-latest
@@ -63,7 +63,7 @@ jobs:
 
       - name: Terraform Apply
         working-directory: terraform/modules/environments/staging
-        run: terraform apply -backend-config="region=${{ secrets.AWS_REGION }}"
+        run: terraform apply -auto-approve -var="aws_region=${{ secrets.AWS_REGION }}"
 
   deploy-production:
     runs-on: ubuntu-latest
@@ -90,4 +90,4 @@ jobs:
 
       - name: Terraform Apply
         working-directory: terraform/modules/environments/prod
-        run: terraform apply -backend-config="region=${{ secrets.AWS_REGION }}"
+        run: terraform apply -auto-approve -var="aws_region=${{ secrets.AWS_REGION }}"
