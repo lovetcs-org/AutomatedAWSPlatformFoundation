@@ -20,8 +20,13 @@ terraform {
     backend "s3" {
         bucket = "lovetcs-staging-lock-bucket"
         key = "terraform.tfstate"
-        region = var.aws_region
         encrypt = true
         use_lockfile = true
     }
+}
+
+module "vpc" {
+  source = "/Users/letongw/Documents/Automated AWS Platform Foundation/modules/vpc"
+  env_name = "staging"
+  vpc_cidr = "10.0.0.0/16"
 }
