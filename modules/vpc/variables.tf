@@ -7,8 +7,3 @@ variable "env_name" {
   type        = string
   description = "Environment name (dev, staging, prod)"
 }
-
-variable "private_subnet_ids" {
-  type = list(string)
-  description = "List of private subnet ids"
-}
