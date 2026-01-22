@@ -47,3 +47,8 @@ module "eks" {
   cluster_arn_role = data.aws_iam_role.eks_cluster.arn
   cluster_node_arn_role = data.aws_iam_role.eks_node.arn
 }
+
+module "ecr" {
+  source = "../../../../modules/ecr"
+  env_name = "dev"
+}
