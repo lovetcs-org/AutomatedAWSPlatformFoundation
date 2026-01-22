@@ -44,3 +44,10 @@ jobs:
       - name: Configure kubectl
         run: aws eks update-kubeconfig --name dev-cluster --region eu-west-2
       
+      - name: Deploy with Helm
+        run: |
+          helm upgrade --install my-app ./helm/my-app \
+          --values ./helm/my-app/values-dev.yaml \
+          --set image.tag=${{ github.sha }} \
+          --namespace default \
+          --create-namespace

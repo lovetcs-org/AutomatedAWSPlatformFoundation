@@ -1,0 +1,22 @@
+image:
+  repository: ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/production-ecr
+  tag: latest
+  pullPolicy: Always
+
+# How many pods?
+replicaCount: 5
+
+# Resource allocation
+resources:
+  requests:
+    memory: "128Mi"
+    cpu: "100m"
+  limits:
+    memory: "256Mi"
+    cpu: "200m"
+
+# Service (how to access)
+service:
+  type: LoadBalancer
+  port: 80
+  targetPort: 80
