@@ -4,7 +4,7 @@ on:
   push: 
     branches: [ main ]
     paths:
-      - 'src/**'
+      - 'app/**'
       - 'helm/**'
       - Dockerfile
   workflow_dispatch:
@@ -20,3 +20,27 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
+
+      - name: Configure Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          aws-region: ${{ secrets.AWS_REGION }} 
+      
+      - name: Login to ECR
+        id: ecr-login
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Build and push to ECR
+        working-directory: ./app
+        env:
+          ECR_REGISTRY: ${{ steps.ecr-login.outputs.registry }}  
+        run: |
+          docker build -t dev-ecr:${{ github.sha }} .
+          docker tag dev-ecr:${{ github.sha }} $ECR_REGISTRY/dev-ecr:latest
+          docker push $ECR_REGISTRY/dev-ecr:${{ github.sha }}
+          docker push $ECR_REGISTRY/dev-ecr:latest
+
+      - name: Configure kubectl
+        run: aws eks update-kubeconfig --name dev-cluster --region eu-west-2
+      
