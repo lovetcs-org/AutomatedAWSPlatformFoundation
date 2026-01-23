@@ -34,7 +34,7 @@ resource "aws_subnet" "public_zone1" {
     tags = {
         "Name" = "${var.env_name}-public-${data.aws_availability_zones.available.names[0]}"
         "kubernetes.io/role/elb" = "1"
-        "kubernetes.io/cluster/${var.env_name}-demo" = "owned"
+        "kubernetes.io/cluster/${var.env_name}-cluster" = "shared"
         }
 }
 
@@ -48,7 +48,7 @@ resource "aws_subnet" "public_zone2" {
     tags = {
         "Name" = "${var.env_name}-public-${data.aws_availability_zones.available.names[1]}"
         "kubernetes.io/role/elb" = "1"
-        "kubernetes.io/cluster/${var.env_name}-demo" = "owned"
+        "kubernetes.io/cluster/${var.env_name}-cluster" = "shared"
         }
 }
 
@@ -62,7 +62,7 @@ resource "aws_subnet" "private_zone1" {
     tags = {
         "Name" = "${var.env_name}-private-${data.aws_availability_zones.available.names[0]}"
         "kubernetes.io/role/internal-elb" = "1"
-        "kubernetes.io/cluster/${var.env_name}-demo" = "owned"
+        "kubernetes.io/cluster/${var.env_name}-cluster" = "shared"
         }
 }
 
@@ -76,7 +76,7 @@ resource "aws_subnet" "private_zone2" {
     tags = {
         "Name" = "${var.env_name}-private-${data.aws_availability_zones.available.names[1]}"
         "kubernetes.io/role/internal-elb" = "1"
-        "kubernetes.io/cluster/${var.env_name}-demo" = "owned"
+        "kubernetes.io/cluster/${var.env_name}-cluster" = "shared"
         }
 }
 
