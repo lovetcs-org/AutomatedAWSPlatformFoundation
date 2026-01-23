@@ -44,16 +44,17 @@ jobs:
           docker push $ECR_URL:${{ github.sha }}
           docker push $ECR_URL:latest
 
-      - name: Configure kubectl
-        run: aws eks update-kubeconfig --name dev-cluster --region eu-west-2
-      
-      - name: Deploy with Helm
+      - name: Update Helm values with new image tag
         run: |
-          helm upgrade --install my-app ./helm/my-app \
-          --values ./helm/my-app/values-dev.yaml \
-          --set image.repository=${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/dev-ecr \
-          --set image.tag=latest \
-          --namespace default
+          sed -i "s|tag: .*|tag: ${{ github.sha }}|" helm/my-app/values-dev.yaml
+    
+      - name: Commit and push updated values
+        run: |
+          git config user.name "GitHub Actions Bot"
+          git config user.email "actions@github.com"
+          git add helm/my-app/values-dev.yaml
+          git commit -m "chore: update image tag to ${{ github.sha }}"
+          git push
   
   deploy-staging:
     runs-on: ubuntu-latest
