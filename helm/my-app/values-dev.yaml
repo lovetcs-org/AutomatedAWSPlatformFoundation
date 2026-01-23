@@ -1,6 +1,6 @@
 image:
   repository: ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/dev-ecr
-  tag: latest
+  tag: fe4b380bc730edb01f2b48397e21d5102fc9e2cd
   pullPolicy: Always
 
 # How many pods?
